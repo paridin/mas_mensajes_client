@@ -1,11 +1,13 @@
 use Mix.Config
 
-config :mas_mensajes,
-  token: System.get_env(MAS_MENSAJES_TOKEN) ||
+token = System.get_env("MAS_MENSAJES_TOKEN") ||
   raise """
   environment variable MAS_MENSAJES_TOKEN is missing.
   For example: MAS_MENSAJES_TOKEN=eyJ0eXAi...OiJKV1QiLCJhbGci
   """
+
+config :mas_mensajes,
+  token: token
 # And access this configuration in your application as:
 #
 #     Application.get_env(:mas_mensajes, :token)
