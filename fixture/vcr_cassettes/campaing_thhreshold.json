@@ -1,0 +1,35 @@
+[
+  {
+    "request": {
+      "body": "{\"campaign_name\":\"Threshold\",\"country\":1,\"encode\":false,\"long_message\":true,\"recipients\":[{\"cellphone\":\"2525553812\",\"field1\":\"10GB\",\"field2\":\"90GB\",\"name\":\"Paridin\"}],\"route\":153,\"text\":\"Hola <+B+>, Te quedan <+C+> de tu plan. Actualmente haz consumido <+D+>.\"}",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": "Bearer eyJ0eXAiOiJiJSUzI1NiIssSOtU_PnBdcQ0_xKErODYu9h9vj1A2"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://smsclouds.cloud/api/v3/campaign"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"message\":\"Completado Correctamente\",\"campaign\":7473441,\"campaign_name\":\"Threshold\",\"route\":\"Premium 3 Masiva\",\"country\":\"Mexico\",\"scheduled_date\":null,\"recipients_count\":1,\"encode\":false,\"long_message\":true,\"balance\":197.06}",
+      "headers": {
+        "Date": "Sun, 10 Nov 2019 06:44:03 GMT",
+        "Server": "Apache/2.4.6",
+        "X-Powered-By": "PHP/7.2.24",
+        "Cache-Control": "no-cache, private",
+        "X-RateLimit-Limit": "1100",
+        "X-RateLimit-Remaining": "1099",
+        "Vary": "Authorization",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "content-type, authorization",
+        "Access-Control-Allow-Methods": "PUT, GET, POST, DELETE, OPTIONS",
+        "Transfer-Encoding": "chunked",
+        "Content-Type": "application/json"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
