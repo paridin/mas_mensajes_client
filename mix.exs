@@ -38,7 +38,7 @@ defmodule MasMensajes.Mixfile do
     [
       app: @name,
       version: @version,
-      elixir: ">= 1.9.2",
+      elixir: ">= 1.9",
       deps: @deps,
       aliases: @aliases,
       build_embedded: in_production,
