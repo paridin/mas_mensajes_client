@@ -28,6 +28,6 @@ defmodule MasMensajes do
   """
 
   defdelegate profile, to: MasMensajes.Client
-  defdelegate send_to_campaing(campaign, message, recipients, opts), to: MasMensajes.Client
+  defdelegate publish_sms_campaing(campaign, message, recipients, opts \\ %{}), to: MasMensajes.Client
 
 end

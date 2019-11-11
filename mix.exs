@@ -2,7 +2,7 @@ defmodule MasMensajes.Mixfile do
   use Mix.Project
 
   @name :mas_mensajes
-  @version "0.1.0"
+  @version "0.1.1"
 
   @deps [
     {:jason, "~> 1.1"},

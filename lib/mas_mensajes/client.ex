@@ -33,7 +33,7 @@ defmodule MasMensajes.Client do
   ```
 
   """
-  def send_to_campaing(campaign, message, recipients, opts) when is_list(recipients) do
+  def publish_sms_campaing(campaign, message, recipients, opts) when is_list(recipients) do
     %{encode: encode?, long_message: long_message?, route: route, country: country, token: token} =
       Map.merge(@default_campaing_opts, opts)
 

@@ -8,7 +8,6 @@ defmodule MasMensajesTest do
   alias MasMensajes
   # doctest MasMensajes
   describe "profile" do
-    @tag :wip
     test "Check profile" do
       use_cassette "account_profile" do
         assert {:ok, %{
@@ -24,11 +23,9 @@ defmodule MasMensajesTest do
   end
 
   describe "Campaign" do
-    @tag :wip
+
     test "Send a campaign" do
       use_cassette "campaing_thhreshold" do
-        opts = %{}
-
         campaign_name = "Threshold"
         message = "Hola <+B+>, Te quedan <+C+> de tu plan. Actualmente haz consumido <+D+>."
         recipients = [%{
@@ -51,7 +48,7 @@ defmodule MasMensajesTest do
           balance: 197.06
         }
 
-        assert {ok, ^expected_output} = MasMensajes.send_to_campaing(campaign_name, message, recipients, opts)
+        assert {ok, ^expected_output} = MasMensajes.publish_sms_campaing(campaign_name, message, recipients)
       end
     end
   end
