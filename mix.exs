@@ -43,7 +43,25 @@ defmodule MasMensajes.Mixfile do
       aliases: @aliases,
       build_embedded: in_production,
       preferred_cli_env: @preferred_cli_env,
-      test_coverage: [tool: ExCoveralls]
+      test_coverage: [tool: ExCoveralls],
+      description: "Mas Mensajes client.",
+      package: package(),
+      name: "Mas Mensajes client",
+      source_url: "https://github.com/paridin/mas_mensajes_client",
+      homepage_url: "https://paridin.com",
+      docs: [
+        # The main page in the docs
+        main: "MasMensajes",
+        # logo: "logo.png",
+        extras: ["README.md"]
+      ]
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["Apache-2.0"],
+      links: %{}
     ]
   end
 
