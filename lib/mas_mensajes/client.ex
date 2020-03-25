@@ -4,7 +4,7 @@ defmodule MasMensajes.Client do
   wrapping the underlying HTTP API calls.
   """
   require Logger
-  
+
   @default_campaing_opts %{
     encode: false,
     long_message: true,
@@ -48,8 +48,8 @@ defmodule MasMensajes.Client do
       country: country,
       campaign_name: campaign
     }
-    
-    Logger.info("send message using: #{inspect(payload, pretty: true)}")
+
+    Logger.debug("send message using: #{inspect(payload, pretty: true)}")
 
     "/campaign"
     |> MasMensajes.Api.post(payload, [MasMensajes.Api.authorization_header(token)])
