@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 token = System.get_env("MAS_MENSAJES_TOKEN") ||
   Application.get_env(:mas_mensajes, :token) ||
@@ -20,4 +20,4 @@ config :mas_mensajes,
 
 # Example per-environment config:
 #
-#     import_config("#{Mix.env}.exs")
+import_config("#{Mix.env}.exs")
