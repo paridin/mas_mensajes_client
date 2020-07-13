@@ -1,24 +1,6 @@
 defmodule MasMensajes.Mixfile do
   use Mix.Project
 
-  @name :mas_mensajes
-  @version "0.1.1"
-
-  @deps [
-    {:jason, "~> 1.1"},
-    {:httpoison, "~> 1.6"},
-    {:fn_expr, "~> 0.2"},
-    {:version_tasks, "~> 0.10"},
-    {:ex_doc, ">= 0.0.0", only: :dev},
-    # dev & test deps
-    {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
-    {:excoveralls, "~> 0.11", only: :test},
-    {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
-    {:exvcr, "~> 0.10", only: [:dev, :test]}
-  ]
-
-  @aliases []
-
   @preferred_cli_env [
     coveralls: :test,
     "coveralls.detail": :test,
@@ -36,11 +18,11 @@ defmodule MasMensajes.Mixfile do
     in_production = Mix.env() == :prod
 
     [
-      app: @name,
-      version: @version,
+      app: :mas_mensajes,
+      version: "0.1.2",
       elixir: ">= 1.9.2",
-      deps: @deps,
-      aliases: @aliases,
+      deps: deps(),
+      aliases: aliases(),
       build_embedded: in_production,
       preferred_cli_env: @preferred_cli_env,
       test_coverage: [tool: ExCoveralls],
@@ -58,10 +40,27 @@ defmodule MasMensajes.Mixfile do
     ]
   end
 
+  defp aliases do
+    []
+  end
+
   defp package do
     [
       licenses: ["Apache-2.0"],
       links: %{}
+    ]
+  end
+
+  defp deps() do
+    [
+      {:jason, "~> 1.2"},
+      {:httpoison, "~> 1.7"},
+      # devel & testing
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.13", only: :test},
+      {:exvcr, "~> 0.11", only: [:dev, :test]},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
     ]
   end
 

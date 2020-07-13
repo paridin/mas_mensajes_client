@@ -25,3 +25,5 @@ config/dev.exs
 .elixir_ls
 
 .docker.prod.env
+
+.DS_Store

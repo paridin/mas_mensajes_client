@@ -1,15 +1,18 @@
 defmodule MasMensajes.Client do
-  @moduledoc"""
+  @moduledoc """
   Access service functionality through Elixir functions,
   wrapping the underlying HTTP API calls.
   """
   require Logger
 
+  @route :mas_mensajes
+         |> Application.get_env(:route, "153")
+         |> String.to_integer()
+
   @default_campaing_opts %{
     encode: false,
-    long_message: true,
-    route: 153,
-    country: 1,
+    long_message: Application.get_env(:mas_mensajes, :long_message, false),
+    route: @route,
     token: Application.get_env(:mas_mensajes, :token)
   }
 
@@ -30,13 +33,12 @@ defmodule MasMensajes.Client do
     encode: false,
     long_message: true,
     route: 153,
-    country: 1,
   }
   ```
 
   """
   def publish_sms_campaing(campaign, message, recipients, opts) when is_list(recipients) do
-    %{encode: encode?, long_message: long_message?, route: route, country: country, token: token} =
+    %{encode: encode?, long_message: long_message?, route: route, token: token} =
       Map.merge(@default_campaing_opts, opts)
 
     payload = %{
@@ -45,7 +47,6 @@ defmodule MasMensajes.Client do
       encode: encode?,
       long_message: long_message?,
       route: route,
-      country: country,
       campaign_name: campaign
     }
 
@@ -60,5 +61,3 @@ defmodule MasMensajes.Client do
   defp response({_, %{error: error, reason: reason}}), do: {:error, "#{error}; #{reason}"}
   defp response({_, reason}), do: {:error, reason}
 end
-
-

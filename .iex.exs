@@ -1,1 +1,1 @@
-alias MasMensajes.{Worker,Api}
+alias MasMensajes.Api

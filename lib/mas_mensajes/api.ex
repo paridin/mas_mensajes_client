@@ -1,7 +1,5 @@
 defmodule MasMensajes.Api do
-  use FnExpr
-
-  @moduledoc"""
+  @moduledoc """
   Make generic HTTP calls a web service.  Please
   update (or remove) the tests to a sample service
   in the examples below, they refer to a sample project
@@ -12,8 +10,7 @@ defmodule MasMensajes.Api do
 
   @default_service_url "https://smsclouds.cloud/api/v3"
 
-
-  @doc"""
+  @doc """
   Retrieve data from the API using any method (:get, :post, :put, :delete, etc) available
 
   ## Examples
@@ -31,15 +28,17 @@ defmodule MasMensajes.Api do
       query_params |> clean_params
     )
     |> case do
-        {:ok, %{body: raw_body, status_code: code, headers: headers}} ->
-          {code, raw_body, headers}
-        {:error, %{reason: reason}} -> {:error, reason, []}
-       end
+      {:ok, %{body: raw_body, status_code: code, headers: headers}} ->
+        {code, raw_body, headers}
+
+      {:error, %{reason: reason}} ->
+        {:error, reason, []}
+    end
     |> content_type
     |> decode
   end
 
-  @doc"""
+  @doc """
   Send a GET request to the API
 
   ## Examples
@@ -60,7 +59,7 @@ defmodule MasMensajes.Api do
     call(url, :get, "", query_params, headers)
   end
 
-  @doc"""
+  @doc """
   Send a POST request to the API
 
   ## Examples
@@ -73,21 +72,21 @@ defmodule MasMensajes.Api do
     call(url, :post, body, %{}, headers)
   end
 
-  @doc"""
+  @doc """
   Send a PUT request to the API
   """
   def put(url, body \\ nil, headers \\ []) do
     call(url, :put, body, %{}, headers)
   end
 
-  @doc"""
+  @doc """
   Send a DELETE request to the API
   """
   def delete(url, query_params \\ %{}, headers \\ []) do
     call(url, :delete, "", query_params, headers)
   end
 
-  @doc"""
+  @doc """
   Resolve the shared secret token, if provided then simply return itself, otherwise
   lookup in the configs.
 
@@ -103,17 +102,17 @@ defmodule MasMensajes.Api do
   def authorization_header(token \\ nil) do
     token
     |> case do
-         nil -> Application.get_env(:mas_mensajes, :token)
-         t -> t
-       end
+      nil -> Application.get_env(:mas_mensajes, :token)
+      t -> t
+    end
     |> case do
-         {:system, lookup} -> System.get_env(lookup)
-         t -> t
-       end
+      {:system, lookup} -> System.get_env(lookup)
+      t -> t
+    end
     |> (fn t -> {"Authorization", "Bearer #{t}"} end).()
   end
 
-  @doc"""
+  @doc """
   The service's default URL, it will lookup the config,
   possibly check the env variables and default if still not found
 
@@ -126,13 +125,13 @@ defmodule MasMensajes.Api do
   def service_url() do
     Application.get_env(:mas_mensajes, :service_url)
     |> case do
-         {:system, lookup} -> System.get_env(lookup)
-         nil -> @default_service_url
-         url -> url
-       end
+      {:system, lookup} -> System.get_env(lookup)
+      nil -> @default_service_url
+      url -> url
+    end
   end
 
-  @doc"""
+  @doc """
   Extract the content type of the headers
 
   ## Examples
@@ -154,10 +153,10 @@ defmodule MasMensajes.Api do
   """
   def content_type({ok, body, headers}), do: {ok, body, content_type(headers)}
   def content_type([]), do: "application/json"
-  def content_type([{ "Content-Type", val } | _]), do: val |> String.split(";") |> List.first
+  def content_type([{"Content-Type", val} | _]), do: val |> String.split(";") |> List.first()
   def content_type([_ | t]), do: t |> content_type
 
-  @doc"""
+  @doc """
   Encode the body to pass along to the server
 
   ## Examples
@@ -180,7 +179,7 @@ defmodule MasMensajes.Api do
   def encode(data, "application/x-www-form-urlencoded"), do: URI.encode_query(data)
   def encode(data, _), do: data
 
-  @doc"""
+  @doc """
   Decode the response body
 
   ## Examples
@@ -206,25 +205,27 @@ defmodule MasMensajes.Api do
   """
   def decode({ok, body, _}) when is_atom(body), do: {ok, body}
   def decode({ok, "", _}), do: {ok, ""}
+
   def decode({ok, body, "application/json"}) when is_binary(body) do
     body
     |> Jason.decode(keys: :atoms)
     |> case do
-         {:ok, parsed} -> {ok, parsed}
-         _ -> {:error, body}
-       end
+      {:ok, parsed} -> {ok, parsed}
+      _ -> {:error, body}
+    end
   end
+
   def decode({ok, body, "application/xml"}) do
     try do
-      {ok, body |> :binary.bin_to_list |> :xmerl_scan.string}
+      {ok, body |> :binary.bin_to_list() |> :xmerl_scan.string()}
     catch
       :exit, _e -> {:error, body}
     end
   end
+
   def decode({ok, body, _}), do: {ok, body}
 
-
-  @doc"""
+  @doc """
   Clean the URL, if there is a port, but nothing after, then ensure there's a
   ending '/' otherwise you will encounter something like
   hackney_url.erl:204: :hackney_url.parse_netloc/2
@@ -249,25 +250,25 @@ defmodule MasMensajes.Api do
 
   defp endpoint_url(endpoint) do
     case endpoint do
-       nil -> service_url()
-       "" -> service_url()
-       "/" <> _ -> service_url() <> endpoint
-       _ -> endpoint
-     end
+      nil -> service_url()
+      "" -> service_url()
+      "/" <> _ -> service_url() <> endpoint
+      _ -> endpoint
+    end
   end
 
   defp slash_cleanup(url) do
     url
     |> String.split(":")
-    |> List.last
-    |> Integer.parse
+    |> List.last()
+    |> Integer.parse()
     |> case do
-         {_, ""} -> url <> "/"
-         _ -> url
-       end
+      {_, ""} -> url <> "/"
+      _ -> url
+    end
   end
 
-  @doc"""
+  @doc """
   Clean the URL, if there is a port, but nothing after, then ensure there's a
   ending '/' otherwise you will encounter something like
   hackney_url.erl:204: :hackney_url.parse_netloc/2
@@ -302,18 +303,18 @@ defmodule MasMensajes.Api do
   def clean_headers(h) when is_map(h) do
     %{"Content-Type" => "application/json; charset=utf-8"}
     |> Map.merge(h)
-    |> Enum.map(&(&1))
+    |> Enum.map(& &1)
   end
+
   def clean_headers(h) when is_list(h) do
     h
-    |> Enum.filter(fn {k,_v} -> k == "Content-Type" end)
+    |> Enum.filter(fn {k, _v} -> k == "Content-Type" end)
     |> case do
-         [] -> [{"Content-Type", "application/json; charset=utf-8"} | h ]
-         _ -> h
-       end
+      [] -> [{"Content-Type", "application/json; charset=utf-8"} | h]
+      _ -> h
+    end
   end
 
   def clean_params(query_params) when query_params == %{}, do: []
   def clean_params(query_params), do: [{:params, query_params}]
-
 end
