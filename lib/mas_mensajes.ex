@@ -1,5 +1,5 @@
 defmodule MasMensajes do
-  @moduledoc"""
+  @moduledoc """
   A client library for interacting with the MasMensajes API.
 
   The underlying HTTP calls and done through
@@ -28,6 +28,7 @@ defmodule MasMensajes do
   """
 
   defdelegate profile, to: MasMensajes.Client
-  defdelegate publish_sms_campaing(campaign, message, recipients, opts \\ %{}), to: MasMensajes.Client
 
+  defdelegate publish_sms_campaing(campaign, message, recipients, opts \\ %{}),
+    to: MasMensajes.Client
 end
