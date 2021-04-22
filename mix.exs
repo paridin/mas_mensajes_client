@@ -19,7 +19,7 @@ defmodule MasMensajes.Mixfile do
 
     [
       app: :mas_mensajes,
-      version: "0.1.2",
+      version: "1.0.0",
       elixir: ">= 1.9.2",
       deps: deps(),
       aliases: aliases(),
