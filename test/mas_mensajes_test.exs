@@ -52,7 +52,7 @@ defmodule MasMensajesTest do
           balance: 774.4
         }
 
-        assert {ok, ^expected_output} =
+        assert {:ok, ^expected_output} =
                  MasMensajes.publish_sms_campaing(campaign_name, message, recipients)
       end
     end
