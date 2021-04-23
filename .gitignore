@@ -19,9 +19,6 @@ erl_crash.dump
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
 
-# For local testing, otherwise should be set by the calling application
-config/dev.exs
-
 .elixir_ls
 
 .docker.prod.env
