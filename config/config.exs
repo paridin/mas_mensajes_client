@@ -10,16 +10,3 @@ token =
 
 config :mas_mensajes,
   token: token
-
-# And access this configuration in your application as:
-#
-#     Application.get_env(:mas_mensajes, :token)
-#
-# Or configure a 3rd-party app:
-#
-#     config(:logger, level: :info)
-#
-
-# Example per-environment config:
-#
-import_config("#{Mix.env()}.exs")
