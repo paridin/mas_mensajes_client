@@ -68,6 +68,7 @@ defmodule MasMensajes.Mixfile do
     [
       mod: {MasMensajes.Application, []},
       extra_applications: [
+        :xmerl_scan,
         :logger
       ]
     ]
