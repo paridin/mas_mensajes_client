@@ -1,3 +1,9 @@
+## 0.1.3
+
+### Enhancements
+  - Deprecated function with typo 
+  - Improve code to alter environment config via runtime
+
 ## 0.1.2
 
 ### Enhancements

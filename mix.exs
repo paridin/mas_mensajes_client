@@ -19,7 +19,7 @@ defmodule MasMensajes.Mixfile do
 
     [
       app: :mas_mensajes,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: ">= 1.9.2",
       deps: deps(),
       aliases: aliases(),
@@ -30,7 +30,7 @@ defmodule MasMensajes.Mixfile do
       package: package(),
       name: "Mas Mensajes client",
       source_url: "https://github.com/paridin/mas_mensajes_client",
-      homepage_url: "https://paridin.com",
+      homepage_url: "https://defdo.ninja",
       docs: [
         # The main page in the docs
         main: "MasMensajes",

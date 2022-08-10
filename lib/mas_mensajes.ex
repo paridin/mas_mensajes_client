@@ -29,6 +29,10 @@ defmodule MasMensajes do
 
   defdelegate profile, to: MasMensajes.Client
 
+  @deprecated "use publish_sms_campaign/3 instead."
   defdelegate publish_sms_campaing(campaign, message, recipients, opts \\ %{}),
+    to: MasMensajes.Client
+
+  defdelegate publish_sms_campaign(campaign, message, recipients, opts \\ %{}),
     to: MasMensajes.Client
 end

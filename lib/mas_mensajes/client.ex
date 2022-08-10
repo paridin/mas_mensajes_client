@@ -5,16 +5,20 @@ defmodule MasMensajes.Client do
   """
   require Logger
 
-  @route :mas_mensajes
-         |> Application.get_env(:route, "153")
-         |> String.to_integer()
+  defp route do
+    :mas_mensajes
+    |> Application.get_env(:route, "153")
+    |> String.to_integer()
+  end
 
-  @default_campaing_opts %{
-    encode: false,
-    long_message: Application.get_env(:mas_mensajes, :long_message, false),
-    route: @route,
-    token: Application.get_env(:mas_mensajes, :token)
-  }
+  defp default_campaign_opts do
+    %{
+      encode: false,
+      long_message: Application.get_env(:mas_mensajes, :long_message, false),
+      route: route(),
+      token: Application.get_env(:mas_mensajes, :token)
+    }
+  end
 
   def profile(token \\ nil) do
     "/user"
@@ -37,9 +41,9 @@ defmodule MasMensajes.Client do
   ```
 
   """
-  def publish_sms_campaing(campaign, message, recipients, opts) when is_list(recipients) do
+  def publish_sms_campaign(campaign, message, recipients, opts) when is_list(recipients) do
     %{encode: encode?, long_message: long_message?, route: route, token: token} =
-      Map.merge(@default_campaing_opts, opts)
+      Map.merge(default_campaign_opts(), opts)
 
     payload = %{
       text: message,
@@ -55,6 +59,11 @@ defmodule MasMensajes.Client do
     "/campaign"
     |> MasMensajes.Api.post(payload, [MasMensajes.Api.authorization_header(token)])
     |> response()
+  end
+
+  @deprecated "Use publish_sms_campaign/4 instead"
+  def publish_sms_campaing(campaign, message, recipients, opts) when is_list(recipients) do
+    publish_sms_campaign(campaign, message, recipients, opts)
   end
 
   defp response({200, answer}), do: {:ok, answer}
